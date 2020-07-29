@@ -28,6 +28,9 @@
     "bookmark-app-e2e": {
       "tags": [],
       "implicitDependencies": ["bookmark-app"]
+    },
+    "util-storage": {
+      "tags": ["type:util"]
     }
   }
 }

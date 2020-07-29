@@ -120,6 +120,50 @@
           }
         }
       }
+    },
+    "util-storage": {
+      "projectType": "library",
+      "root": "libs/util/storage",
+      "sourceRoot": "libs/util/storage/src",
+      "prefix": "phantom-tech-test",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/util/storage/tsconfig.lib.json",
+            "project": "libs/util/storage/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/util/storage/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/util/storage/tsconfig.lib.json",
+              "libs/util/storage/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/util/storage/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/util/storage/jest.config.js",
+            "tsConfig": "libs/util/storage/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/util/storage/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
