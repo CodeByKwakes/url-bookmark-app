@@ -1,6 +1,130 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "bookmark-app": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/bookmark-app",
+      "sourceRoot": "apps/bookmark-app/src",
+      "prefix": "ph",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/bookmark-app",
+            "index": "apps/bookmark-app/src/index.html",
+            "main": "apps/bookmark-app/src/main.ts",
+            "polyfills": "apps/bookmark-app/src/polyfills.ts",
+            "tsConfig": "apps/bookmark-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/bookmark-app/src/favicon.ico",
+              "apps/bookmark-app/src/assets"
+            ],
+            "styles": ["apps/bookmark-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/bookmark-app/src/environments/environment.ts",
+                  "with": "apps/bookmark-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "bookmark-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "bookmark-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "bookmark-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/bookmark-app/tsconfig.app.json",
+              "apps/bookmark-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/bookmark-app/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/bookmark-app/jest.config.js",
+            "tsConfig": "apps/bookmark-app/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/bookmark-app/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "bookmark-app-e2e": {
+      "root": "apps/bookmark-app-e2e",
+      "sourceRoot": "apps/bookmark-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/bookmark-app-e2e/cypress.json",
+            "tsConfig": "apps/bookmark-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "bookmark-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "bookmark-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/bookmark-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/bookmark-app-e2e/**/*"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/angular"
   },
@@ -12,5 +136,6 @@
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
     }
-  }
+  },
+  "defaultProject": "bookmark-app"
 }
