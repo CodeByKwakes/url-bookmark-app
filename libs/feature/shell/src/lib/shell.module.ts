@@ -9,11 +9,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { NgxsModule } from '@ngxs/store';
 import { BookmarkListContainer } from './containers/bookmark-list/bookmark-list.container';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     CommonModule,
-
+    // BrowserAnimationsModule,
     RouterModule.forChild([
       {
         path: '',
@@ -23,12 +24,13 @@ import { BookmarkListContainer } from './containers/bookmark-list/bookmark-list.
       {
         path: 'overview',
         component: OverviewPage,
+        data: { animation: 'overview' },
       },
       {
         path: 'result',
         component: ResultPage,
+        data: { animation: 'result' },
       },
-      /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
     ]),
     NgxsModule,
     StoreModule,

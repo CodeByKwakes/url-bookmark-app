@@ -11,13 +11,14 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { BookmarkState } from '@phantom/bookmark-store';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     NgxsModule.forRoot([], {
       developmentMode: !environment.production,
     }),

@@ -66,7 +66,7 @@ export class BookmarkState {
         patchState({
           bookmarks: [...state.bookmarks, item],
         });
-        dispatch(new SetSelectedBookmark(item.id));
+        dispatch(new SetSelectedBookmark(item));
       })
     );
   }

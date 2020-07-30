@@ -36,7 +36,6 @@ export class InputFormContainer implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store,
     private bookmarkApi: ApiService,
-    private route: ActivatedRoute,
     private router: Router
   ) {
     this.createForm();
@@ -82,12 +81,16 @@ export class InputFormContainer implements OnInit, OnDestroy {
       this.store
         .dispatch(new AddBookmark(this.bookmarkForm.value.url))
         .pipe(takeUntil(this.destory$$))
-        .subscribe(() => this.router.navigate(['result']));
+        .subscribe(() => {
+          this.bookmarkApi.setAlertMessage(null);
+          this.router.navigate(['result']);
+        });
     }
   }
 
   clearForm() {
     this.bookmarkForm.reset();
+    this.bookmarkApi.setAlertMessage(null);
     this.store.dispatch(new SetSelectedBookmark(null));
   }
 

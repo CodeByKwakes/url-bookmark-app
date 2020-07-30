@@ -1,1 +1,22 @@
-<p>result works!</p>
+<div class="container">
+  <div *ngIf="bookmark$ |async as bookmark"
+       class="card text-center">
+    <div class="card-header">
+      Thank You For Your Submission
+    </div>
+    <!-- <div class="d-flex justify-content-center" style="width: 264px;">
+
+    </div>
+
+    <img [src]="bookmark.image"
+         [alt]="bookmark.url"
+         class="card-img-top"> -->
+
+    <div class="card-body">
+      <h5 class="card-title">{{bookmark.url}}</h5>
+      <p class="card-text">Id: {{bookmark.id}}</p>
+      <a class="btn btn-primary"
+         (click)="onRouteToOverview()">Go To Overview</a>
+    </div>
+  </div>
+</div>
