@@ -1,98 +1,79 @@
-# PhantomTechTest
+# Phantom Bookmark App
 
-This project was generated using [Nx](https://nx.dev).
+Phantom Bookmark App is a web application that allows a user to save a list of website urls.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Prerequisites
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+Before you begin, ensure you have met the following requirements:
+<!--- These are just example requirements. Add, duplicate or remove as required --->
+* Node version 13 or higher
+* NPM 6 or higher
+* Angular CLI version 10.
 
-## Quick Start & Documentation
+## Installing Phantom Bookmark App
 
-[Nx Documentation](https://nx.dev/angular)
+To install Phantom Bookmark App, follow these steps:
 
-[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
+```
+npm install or npm i
+```
 
-[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
+## Using Phantom Bookmark App
 
-## Adding capabilities to your workspace
+To use Phantom Bookmark App, follow these steps:
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+```
+npm run bookmarkapp:serve
+```
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+To make a dist build of Phantom Bookmark App, follow these steps:
 
-Below are our core plugins:
+```
+npm run bookmarkapp:build /* add -- --prod to make a production build */
+```
+## Technologies Used
+* [Angular (v10)](https://angular.io/)
+* [nrwl/nx (v10)](https://github.com/nrwl/nx)
+* [ngxs/store (v3.6)](https://github.com/ngxs/store)
+* [jw-angular-pagination](https://github.com/cornflourblue/jw-angular-pagination)
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+## Monorep Structure
 
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
+The project is set up in a monorepo architecture. This allows developers to build and develop multiple applications and libraries and re-use and share code  them many times throughout the repo instead of duplicating code. It allows the developer to follow the separation of concerns rule
 
-## Generate an application
+The main structure of the repo is split into two parts
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
 
-> You can use any of the plugins above to generate applications as well.
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+*   Apps
+*   Libs
 
-## Generate a library
 
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
+### Apps
 
-> You can also use any of the plugins above to generate libraries as well.
+The app takes libraries and is able to use the modules via the lazy loading strategy. this means the app can not only load one library but can have multiple parts for different situations i.e. mobile devices platforms, desktop applications etc
 
-Libraries are sharable across libraries and applications. They can be imported from `@phantom-tech-test/mylib`.
 
-## Development server
+### Libs
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Libs are multiple steprate modules that can be reused and shared within each other or in Apps. This means the library can be used not only inside of its own repo but if populist can be used for other projects as a tool or module.
 
-## Code scaffolding
 
-Run `ng g component my-component --project=my-app` to generate a new component.
+Libraries can be set into different types for the workspace:-
 
-## Build
+*   Feature: implement smart components (or containers) for specific business use cases or pages in an application.
+*   UI: contains only presentational ( "dumb") components
+*   Data-access: contains code for interacting with a back-end system or related to state management.
+*   Utility: contains low-level utilities used by many libraries and applications
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Documentation
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+You can find the following list of documents to help know more about this repo:-
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+* [About Nx](./docs/nx.md)
+* [Repo Tree Structure](./docs/repo-tree-structure.md)
 
-## Running end-to-end tests
+## Contact
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-## ☁ Nx Cloud
-
-### Computation Memoization in the Cloud
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+If you want to contact me you can reach me at kwakesproject@gmail.com.

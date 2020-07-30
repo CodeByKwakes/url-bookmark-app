@@ -40,6 +40,9 @@
     },
     "feature-shell": {
       "tags": ["type:feature"]
+    },
+    "util-animations": {
+      "tags": ["type:util"]
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RouterAnimation } from './animations';
+import { RouterAnimation } from '@phantom/util/animations';
 @Component({
   selector: 'ph-root',
   templateUrl: './app.component.html',

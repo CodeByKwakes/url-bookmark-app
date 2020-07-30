@@ -1,12 +1,11 @@
 import {
-  style,
-  query,
-  trigger,
-  transition,
-  group,
   animate,
   animateChild,
-  stagger,
+  group,
+  query,
+  style,
+  transition,
+  trigger,
 } from '@angular/animations';
 
 export const resetRouteAnimation = [
@@ -16,10 +15,9 @@ export const resetRouteAnimation = [
     [
       style({
         position: 'fixed', // using absolute makes the scroll get stuck in the previous page's scroll position on the new page
-        // top: 0, // adjust this if you have a header so it factors in the height and not cause the router outlet to jump as it animates
-        // left: 0,
+        top: 0, // adjust this if you have a header so it factors in the height and not cause the router outlet to jump as it animates
+        left: 0,
         width: '100%',
-        // opacity: 0,
       }),
     ],
     { optional: true }

@@ -5,6 +5,7 @@
   "scripts": {
     "---------- WORKSPACE SCRIPTS ----------": "",
     "bookmarkapp:serve": "ng s bookmark-app",
+    "bookmarkapp:build": "ng b bookmark-app",
     "preinstall": "npx rimraf package-lock.json node_modules",
     "---------- NX WORKSPACE SCRIPTS ----------": "",
     "ng": "nx",

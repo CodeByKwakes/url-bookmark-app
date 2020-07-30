@@ -296,6 +296,50 @@
           "style": "scss"
         }
       }
+    },
+    "util-animations": {
+      "projectType": "library",
+      "root": "libs/util/animations",
+      "sourceRoot": "libs/util/animations/src",
+      "prefix": "phantom-tech-test",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/util/animations/tsconfig.lib.json",
+            "project": "libs/util/animations/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/util/animations/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/util/animations/tsconfig.lib.json",
+              "libs/util/animations/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/util/animations/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/util/animations/jest.config.js",
+            "tsConfig": "libs/util/animations/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/util/animations/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
