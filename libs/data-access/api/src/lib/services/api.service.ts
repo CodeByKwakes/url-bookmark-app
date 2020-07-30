@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '@phantom/util/storage';
 import { HttpClient } from '@angular/common/http';
-import { Subject, Observable, throwError } from 'rxjs';
+import { Subject, Observable, throwError, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 const BOOKMARKS_STORAGE_KEY = 'bookmark_list';
-export interface BookmarkItem {
+export interface Bookmark {
   id: number;
   url: string;
   image?: string;
@@ -27,18 +27,16 @@ export class ApiService {
   ) {}
 
   // GET list of web urls from local storage or default list
-  getItems(): BookmarkItem[] {
-    let list: BookmarkItem[] = this._storageService.getData(
-      BOOKMARKS_STORAGE_KEY
-    );
+  getItems(): Observable<Bookmark[]> {
+    let list: Bookmark[] = this._storageService.getData(BOOKMARKS_STORAGE_KEY);
     if (list === null) {
       list = [];
     }
-    return list;
+    return of(list);
   }
 
   // ADD a new url item to the list of bookmarks
-  addItem(item: BookmarkItem) {
+  addItemToStorage(item: Bookmark) {
     const itemsStored = this._storageService.getData(BOOKMARKS_STORAGE_KEY);
     let items = [];
     if (itemsStored !== null) {
@@ -49,8 +47,8 @@ export class ApiService {
   }
 
   // DELETE web url from the list and local storage
-  deleteItem(id: number) {
-    const items: BookmarkItem[] = this._storageService.getData(
+  deleteItemFromStorage(id: number) {
+    const items: Bookmark[] = this._storageService.getData(
       BOOKMARKS_STORAGE_KEY
     );
 
@@ -61,8 +59,8 @@ export class ApiService {
   }
 
   // UPDATE edited web url link
-  updateItem(item: BookmarkItem, changes: any) {
-    const items: BookmarkItem[] = this._storageService.getData(
+  updateItemInStorage(item: Bookmark, changes: any) {
+    const items: Bookmark[] = this._storageService.getData(
       BOOKMARKS_STORAGE_KEY
     );
     const index = items.findIndex((i) => i.id === item.id);

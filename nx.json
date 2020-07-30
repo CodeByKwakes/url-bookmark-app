@@ -34,6 +34,9 @@
     },
     "data-access-api": {
       "tags": ["type:data-access"]
+    },
+    "data-access-store": {
+      "tags": ["type:data-access"]
     }
   }
 }
