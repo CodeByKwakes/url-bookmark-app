@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="bookmark$ |async as bookmark"
+  <div *ngIf="(bookmark$ |async) as bookmark"
        class="card text-center">
     <div class="card-header">
       Thank You For Your Submission

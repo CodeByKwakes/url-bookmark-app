@@ -40,7 +40,7 @@
 
       </div>
 
-      <ng-container *ngIf="alertMessage$ | async as alert">
+      <ng-container *ngIf="(alertMessage$ | async) as alert">
         <div class="col-xl-9 mx-auto">
           <div class="alert alert-danger alert-dismissible fade show"
                role="alert">

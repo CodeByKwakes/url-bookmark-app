@@ -25,17 +25,22 @@ export class BookmarkListContainer implements OnInit {
     this.store.dispatch(new GetBookmarks());
   }
 
-  deleteBookmark(id: number) {
+  onDeleteBookmark(id: number) {
     this.store.dispatch(new DeleteBookmark(id));
   }
 
-  editBookmark(payload: Bookmark) {
+  onEditBookmark(payload: Bookmark) {
     this.store.dispatch(new SetSelectedBookmark(payload));
+    this.scrollToTop();
   }
 
   // update current page of items
   onChangePage(pageOfItems: Bookmark[]) {
     this.pageOfBookmarks = pageOfItems;
+    this.scrollToTop();
+  }
+
+  private scrollToTop() {
     document.documentElement.scrollTop = 0;
   }
 }

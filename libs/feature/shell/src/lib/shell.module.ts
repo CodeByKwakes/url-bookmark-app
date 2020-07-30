@@ -1,20 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgxsModule } from '@ngxs/store';
+import { StoreModule } from '@phantom/bookmark-store';
+import { JwPaginationModule } from 'jw-angular-pagination';
+import { BookmarkListContainer } from './containers/bookmark-list/bookmark-list.container';
+import { InputFormContainer } from './containers/input-form/input-form.container';
 import { OverviewPage } from './pages/overview/overview.page';
 import { ResultPage } from './pages/result/result.page';
-import { InputFormContainer } from './containers/input-form/input-form.container';
-import { StoreModule } from '@phantom/bookmark-store';
-import { ReactiveFormsModule } from '@angular/forms';
-import { JwPaginationModule } from 'jw-angular-pagination';
-import { NgxsModule } from '@ngxs/store';
-import { BookmarkListContainer } from './containers/bookmark-list/bookmark-list.container';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { UiKitModule } from '@phantom/ui-kit';
 @NgModule({
   imports: [
     CommonModule,
-    // BrowserAnimationsModule,
     RouterModule.forChild([
       {
         path: '',
@@ -34,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ]),
     NgxsModule,
     StoreModule,
+    UiKitModule,
     ReactiveFormsModule,
     JwPaginationModule,
   ],

@@ -20,7 +20,8 @@
       "@phantom/bookmark-api": ["libs/data-access/api/src/index.ts"],
       "@phantom/bookmark-store": ["libs/data-access/store/src/index.ts"],
       "@phantom/bookmark-shell": ["libs/feature/shell/src/index.ts"],
-      "@phantom/util/animations": ["libs/util/animations/src/index.ts"]
+      "@phantom/util/animations": ["libs/util/animations/src/index.ts"],
+      "@phantom/ui-kit": ["libs/ui/ui-kit/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

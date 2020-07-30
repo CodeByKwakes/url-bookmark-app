@@ -43,6 +43,9 @@
     },
     "util-animations": {
       "tags": ["type:util"]
+    },
+    "ui-ui-kit": {
+      "tags": ["type:ui"]
     }
   }
 }
