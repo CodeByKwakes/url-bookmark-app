@@ -36,5 +36,6 @@ export class BookmarkListContainer implements OnInit {
   // update current page of items
   onChangePage(pageOfItems: Bookmark[]) {
     this.pageOfBookmarks = pageOfItems;
+    document.documentElement.scrollTop = 0;
   }
 }

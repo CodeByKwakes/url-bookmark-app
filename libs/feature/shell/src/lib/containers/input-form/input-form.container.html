@@ -7,7 +7,7 @@
         <form [formGroup]="bookmarkForm"
               (ngSubmit)="onSubmit()">
           <div class="form-row">
-            <div class="col-12 col-md-9 mb-2 mb-md-0">
+            <div class="col-12 col-md-8 mb-2 mb-md-0">
               <input type="title"
                      class="form-control"
                      formControlName="url"
@@ -25,11 +25,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4">
               <button type="submit"
                       class="btn mr-1"
                       [ngClass]="{'btn-primary': !editbookmark, 'btn-info': editbookmark}"
-                      [disabled]="bookmarkForm.pristine || bookmarkForm.invalid">{{editbookmark ? 'Update' : 'Submit'}}
+                      [disabled]="!editbookmark && (bookmarkForm.pristine || bookmarkForm.invalid)">{{editbookmark ? 'Update' : 'Submit'}}
               </button>
               <button class="btn btn-primary"
                       (click)="clearForm()">Clear</button>

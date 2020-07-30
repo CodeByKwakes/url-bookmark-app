@@ -1,38 +1,56 @@
-<div class="col mt-3">
-  <div *ngIf="bookmarks$">
-    <jw-pagination [items]="bookmarks$ | async"
-                   [maxPages]="20"
-                   (changePage)="onChangePage($event)"></jw-pagination>
-    <table class="table table-hover table-dark">
-      <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Image</th>
-          <th scope="col">Url</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let bookmark of pageOfBookmarks">
-          <td>{{ bookmark.id }}</td>
-          <td>
-            <img [src]="bookmark.image"
-                 width="80"
-                 height="80"
-                 [alt]="bookmark.url">
-          </td>
-          <td>{{ bookmark.url }}</td>
-          <td>
-            <button class="btn btn-primary"
-                    (click)="editBookmark(bookmark)">Edit</button>
-          </td>
-          <td>
-            <button class="btn btn-primary"
-                    (click)="deleteBookmark(bookmark.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<ng-container *ngTemplateOutlet="(bookmarks$ | async).length ? list : noList">
+</ng-container>
+
+<ng-template #list>
+  <section class="bg-light text-center">
+    <div class="container">
+      <div class="d-flex justify-content-center pt-3">
+        <jw-pagination [items]="bookmarks$ | async"
+                       [maxPages]="20"
+                       (changePage)="onChangePage($event)"></jw-pagination>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase">
+    <div class="container-fluid p-0">
+      <div *ngFor="let bookmark of pageOfBookmarks; let odd = odd; let even = even"
+           class="row no-gutters">
+
+        <div class="col-lg-6 text-white showcase-img"
+             style="background-image: url('img/bg-showcase-1.jpg');"
+             [ngStyle]="{'background-image': 'url(' + bookmark.image + ')'}"
+             [ngClass]="{'order-lg-2': odd }"></div>
+        <div class="col-lg-6 my-auto showcase-text"
+             [ngClass]="{'order-lg-1': odd}">
+          <h2><strong>{{bookmark.id}}: </strong>{{bookmark.url}}</h2>
+          <p class="lead mb-0"></p>
+          <button class="btn btn-info mr-2"
+                  (click)="editBookmark(bookmark)">Edit</button>
+          <button class="btn btn-danger"
+                  (click)="deleteBookmark(bookmark.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-light text-center">
+    <div class="container">
+      <div class="d-flex justify-content-center pt-3">
+        <jw-pagination [items]="bookmarks$ | async"
+                       [maxPages]="20"
+                       (changePage)="onChangePage($event)"></jw-pagination>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #noList>
+  <section class="bg-light text-center">
+    <div class="container">
+      <div class="d-flex justify-content-center pt-3">
+        <p>No Bookmarks Saved</p>
+      </div>
+    </div>
+  </section>
+</ng-template>
