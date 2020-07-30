@@ -31,6 +31,9 @@
     },
     "util-storage": {
       "tags": ["type:util"]
+    },
+    "data-access-api": {
+      "tags": ["type:data-access"]
     }
   }
 }

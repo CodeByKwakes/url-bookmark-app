@@ -164,6 +164,50 @@
           "style": "scss"
         }
       }
+    },
+    "data-access-api": {
+      "projectType": "library",
+      "root": "libs/data-access/api",
+      "sourceRoot": "libs/data-access/api/src",
+      "prefix": "phantom-tech-test",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/data-access/api/tsconfig.lib.json",
+            "project": "libs/data-access/api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/data-access/api/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/data-access/api/tsconfig.lib.json",
+              "libs/data-access/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/data-access/api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data-access/api/jest.config.js",
+            "tsConfig": "libs/data-access/api/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/data-access/api/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@phantom/util/storage": ["libs/util/storage/src/index.ts"]
+      "@phantom/util/storage": ["libs/util/storage/src/index.ts"],
+      "@phantom/bookmark-api": ["libs/data-access/api/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
