@@ -3,23 +3,21 @@
     <jw-pagination [items]="bookmarks$ | async"
                    [maxPages]="20"
                    (changePage)="onChangePage($event)"></jw-pagination>
-
-
-    <table class="table table-striped">
+    <table class="table table-hover table-dark">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Image</th>
-          <th>Url</th>
-          <th></th>
-          <th></th>
+          <th scope="col">Id</th>
+          <th scope="col">Image</th>
+          <th scope="col">Url</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let bookmark of pageOfBookmarks">
           <td>{{ bookmark.id }}</td>
           <td>
-            <img [src]="bookmark.image ? bookmark.image : noImageAvailable"
+            <img [src]="bookmark.image"
                  width="80"
                  height="80"
                  [alt]="bookmark.url">

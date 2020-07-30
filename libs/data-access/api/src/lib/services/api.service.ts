@@ -7,6 +7,7 @@ import {
   BOOKMARKS_STORAGE_KEY,
   ERROR_ALERT_MESSAGE,
   URL_CHECK_BASE,
+  NO_IMAGE_PLACEHOLDER,
 } from '../config/constant';
 import { Bookmark } from '../model/bookmark.model';
 
@@ -71,7 +72,14 @@ export class ApiService {
    */
   checkIfUrlExists(formUrl: string, id: number = null): Observable<Bookmark> {
     return this._http.get<any>(`${this._baseUrl}${formUrl}`).pipe(
-      map(({ url, image }) => ({ id, url, image })),
+      map(({ url, image }) => {
+        image = image ? image : NO_IMAGE_PLACEHOLDER;
+        return {
+          id,
+          url,
+          image,
+        };
+      }),
       catchError(this.handleError.bind(this))
     );
   }
