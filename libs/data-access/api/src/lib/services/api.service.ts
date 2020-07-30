@@ -35,6 +35,14 @@ export class ApiService {
     return of(list);
   }
 
+  // Check if url is exists
+  checkIfUrlExists(url: string): Observable<any> {
+    return this._http.get(`${this._baseUrl}${url}`).pipe(
+      tap((data) => console.log('checkIfUrlExists', data)),
+      catchError(this.handleError)
+    );
+  }
+
   // ADD a new url item to the list of bookmarks
   addItemToStorage(item: Bookmark) {
     const itemsStored = this._storageService.getData(BOOKMARKS_STORAGE_KEY);
@@ -67,14 +75,6 @@ export class ApiService {
     const updatedItem = { ...item, ...changes };
     items[index] = updatedItem;
     this._storageService.setData(BOOKMARKS_STORAGE_KEY, items);
-  }
-
-  // Check if url is exists
-  checkIfUrlExists(url: string): Observable<any> {
-    return this._http.get(`${this._baseUrl}${url}`).pipe(
-      tap((data) => console.log('checkIfUrlExists', data)),
-      catchError(this.handleError)
-    );
   }
 
   // handele the errors from any http call made
