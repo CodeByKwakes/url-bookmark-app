@@ -12,14 +12,14 @@ import {
 } from './bookmark.actions';
 
 export class BookmarkStateModel {
-  bookmarks: Bookmark[];
+  list: Bookmark[];
   selectedBookmark: Bookmark;
 }
 
 @State<BookmarkStateModel>({
   name: 'bookmarks',
   defaults: {
-    bookmarks: [],
+    list: [],
     selectedBookmark: null,
   },
 })
@@ -27,7 +27,7 @@ export class BookmarkStateModel {
 export class BookmarkState {
   @Selector()
   static getBookmarkList(state: BookmarkStateModel) {
-    return state.bookmarks;
+    return state.list;
   }
 
   @Selector()
@@ -44,7 +44,7 @@ export class BookmarkState {
         const state = getState();
         setState({
           ...state,
-          bookmarks: result,
+          list: result,
         });
       })
     );
@@ -58,13 +58,13 @@ export class BookmarkState {
     return this._bookmarkApi.checkIfUrlExists(url).pipe(
       tap((result) => {
         const state = getState();
-        const id = state.bookmarks.length + 1;
+        const id = state.list.length + 1;
         const item = {
           ...result,
           id,
         };
         patchState({
-          bookmarks: [...state.bookmarks, item],
+          list: [...state.list, item],
         });
         dispatch(new SetSelectedBookmark(item));
       })
@@ -79,7 +79,7 @@ export class BookmarkState {
     return this._bookmarkApi.checkIfUrlExists(url).pipe(
       tap((result) => {
         const state = getState();
-        const BookmarkList = [...state.bookmarks];
+        const BookmarkList = [...state.list];
         const BookmarkIndex = BookmarkList.findIndex((item) => item.id === id);
         const updateItem = {
           ...result,
@@ -89,7 +89,7 @@ export class BookmarkState {
 
         setState({
           ...state,
-          bookmarks: BookmarkList,
+          list: BookmarkList,
         });
       })
     );
@@ -103,10 +103,10 @@ export class BookmarkState {
     return of(id).pipe(
       tap(() => {
         const state = getState();
-        const filteredArray = state.bookmarks.filter((item) => item.id !== id);
+        const filteredArray = state.list.filter((item) => item.id !== id);
         setState({
           ...state,
-          bookmarks: filteredArray,
+          list: filteredArray,
         });
       })
     );

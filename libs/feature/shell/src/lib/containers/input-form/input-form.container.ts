@@ -1,32 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store, Select } from '@ngxs/store';
+import { Router } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
+import { ApiService, Bookmark } from '@phantom/bookmark-api';
 import {
+  AddBookmark,
   BookmarkState,
   SetSelectedBookmark,
   UpdateBookmark,
-  AddBookmark,
 } from '@phantom/bookmark-store';
-import { Observable, Subject } from 'rxjs';
-import { Bookmark, ApiService } from '@phantom/bookmark-api';
-import { takeUntil } from 'rxjs/operators';
+import { combineLatest, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'ph-input-form',
+  selector: 'phantom-tech-test-input-form',
   templateUrl: './input-form.container.html',
   styleUrls: ['./input-form.container.scss'],
 })
 export class InputFormContainer implements OnInit, OnDestroy {
-  @Select(BookmarkState.getSelectedBookmark) selectedbookmark: Observable<
-    Bookmark
-  >;
+  @Select(BookmarkState.getSelectedBookmark)
+  selectedbookmark$: Observable<Bookmark>;
 
-  alertMessage$ = this.bookmarkApi.alertMessage$;
+  private _destory$$ = new Subject();
+  private _updateAlertMessage$$ = new Subject<string>();
+
+  alertMessageVM$ = combineLatest([
+    this.bookmarkApi.alertMessage$.pipe(distinctUntilChanged()),
+    this._updateAlertMessage$$.asObservable().pipe(distinctUntilChanged()),
+  ]).pipe(
+    map(([error, update]) => ({ error, update })),
+    distinctUntilChanged()
+  );
+
   bookmarkForm: FormGroup;
-  editbookmark = false;
-  private destory$$ = new Subject();
+  isBookmarkEdit = false;
 
   get formUrl() {
     return this.bookmarkForm.get('url');
@@ -43,8 +50,8 @@ export class InputFormContainer implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.clearForm();
-    this.selectedbookmark
-      .pipe(takeUntil(this.destory$$))
+    this.selectedbookmark$
+      .pipe(takeUntil(this._destory$$))
       .subscribe((bookmark) => {
         if (bookmark) {
           this.bookmarkForm.patchValue({
@@ -52,20 +59,20 @@ export class InputFormContainer implements OnInit, OnDestroy {
             id: bookmark.id,
             image: bookmark.image,
           });
-          this.editbookmark = true;
+          this.isBookmarkEdit = true;
         } else {
-          this.editbookmark = false;
+          this.isBookmarkEdit = false;
         }
       });
   }
 
   ngOnDestroy(): void {
-    this.destory$$.next();
-    this.destory$$.complete();
+    this._destory$$.next();
+    this._destory$$.complete();
   }
 
   onSubmit() {
-    if (this.editbookmark) {
+    if (this.isBookmarkEdit) {
       this.store
         .dispatch(
           new UpdateBookmark(
@@ -73,16 +80,22 @@ export class InputFormContainer implements OnInit, OnDestroy {
             this.bookmarkForm.value.id
           )
         )
-        .pipe(takeUntil(this.destory$$))
+        .pipe(takeUntil(this._destory$$))
         .subscribe(() => {
+          const { id, url } = this.bookmarkForm.value;
+          console.log(id, url);
           this.clearForm();
+          this._updateAlertMessage$$.next(`ID: ${id} - ${url}`);
+          setTimeout(() => {
+            this._updateAlertMessage$$.next(null);
+          }, 3000);
         });
     } else {
       this.store
         .dispatch(new AddBookmark(this.bookmarkForm.value.url))
-        .pipe(takeUntil(this.destory$$))
+        .pipe(takeUntil(this._destory$$))
         .subscribe(() => {
-          this.bookmarkApi.setAlertMessage(null);
+          this.onCloseAlertMessage();
           this.router.navigate(['result']);
         });
     }
@@ -90,11 +103,12 @@ export class InputFormContainer implements OnInit, OnDestroy {
 
   clearForm() {
     this.bookmarkForm.reset();
-    this.bookmarkApi.setAlertMessage(null);
+    this.onCloseAlertMessage();
     this.store.dispatch(new SetSelectedBookmark(null));
   }
 
   onCloseAlertMessage() {
+    this._updateAlertMessage$$.next(null);
     this.bookmarkApi.setAlertMessage(null);
   }
 

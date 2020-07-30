@@ -1,20 +1,22 @@
-<div class="container">
-  <div *ngIf="(bookmark$ |async) as bookmark"
-       class="card text-center">
-    <div class="card-header">
-      Thank You For Your Submission
+<div class="container h-100 d-flex flex-column justify-content-center">
+
+  <ng-container *ngIf="(bookmark$ |async) as bookmark">
+    <div class="card text-center">
+      <div class="card-header">
+        Thank You For Your Submission
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title">{{bookmark.url}}</h5>
+      </div>
+
     </div>
 
-
-    <img [src]="bookmark.image"
-         [alt]="bookmark.url"
-         class="card-img-top rounded mx-auto d-block">
-
-    <div class="card-body">
-      <h5 class="card-title">{{bookmark.url}}</h5>
-      <p class="card-text">Id: {{bookmark.id}}</p>
+    <phantom-tech-test-bookmark-card [item]="bookmark"
+                                     [isSingleCard]="true">
       <a class="btn btn-primary"
          (click)="onRouteToOverview()">Go To Overview</a>
-    </div>
-  </div>
+    </phantom-tech-test-bookmark-card>
+  </ng-container>
+
 </div>

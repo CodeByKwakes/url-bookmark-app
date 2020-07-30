@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Bookmark } from '@phantom/bookmark-api';
 import {
@@ -17,8 +17,10 @@ import { Observable } from 'rxjs';
 export class BookmarkListContainer implements OnInit {
   @Select(BookmarkState.getBookmarkList) bookmarks$: Observable<Bookmark[]>;
 
-  pageOfBookmarks: Bookmark[];
+  @Output() pageSizeChange = new EventEmitter();
 
+  pageOfBookmarks: Bookmark[];
+  selectedIndex = null;
   constructor(private store: Store) {}
 
   ngOnInit(): void {

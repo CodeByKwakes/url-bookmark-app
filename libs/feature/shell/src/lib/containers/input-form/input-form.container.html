@@ -28,8 +28,8 @@
             <div class="col-12 col-md-4">
               <button type="submit"
                       class="btn mr-1"
-                      [ngClass]="{'btn-primary': !editbookmark, 'btn-info': editbookmark}"
-                      [disabled]="!editbookmark && (bookmarkForm.pristine || bookmarkForm.invalid)">{{editbookmark ? 'Update' : 'Submit'}}
+                      [ngClass]="{'btn-primary': !isBookmarkEdit, 'btn-info': isBookmarkEdit}"
+                      [disabled]="!isBookmarkEdit && (bookmarkForm.pristine || bookmarkForm.invalid)">{{isBookmarkEdit ? 'Update' : 'Submit'}}
               </button>
               <button class="btn btn-primary"
                       (click)="clearForm()">Clear</button>
@@ -40,11 +40,17 @@
 
       </div>
 
-      <ng-container *ngIf="(alertMessage$ | async) as alert">
+      <ng-container *ngIf="(alertMessageVM$ | async) as alert">
+
+
         <div class="col-xl-9 mx-auto">
-          <div class="alert alert-danger alert-dismissible fade show"
-               role="alert">
-            <strong>ERROR!</strong> {{alert}}
+
+
+          <div class="alert  alert-dismissible fade show"
+               role="alert"
+               [ngClass]="{'alert-danger': alert.error, 'alert-info': alert.update }">
+            <strong *ngIf="alert.error || alert.update">{{alert.error ? 'ERROR': 'UPDATED'}}</strong>
+            {{alert.error ? alert.error : alert.update}}
 
             <button type="button"
                     class="close"
@@ -54,7 +60,11 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+
+
         </div>
+
+
       </ng-container>
 
     </div>

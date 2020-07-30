@@ -1,6 +1,6 @@
-# Phantom Bookmark App
+# Url Bookmark App
 
-Phantom Bookmark App is a web application that allows a user to save a list of website urls.
+Url Bookmark App is a web application that allows a user to save a list of website urls.
 
 ## Prerequisites
 
@@ -10,23 +10,23 @@ Before you begin, ensure you have met the following requirements:
 * NPM 6 or higher
 * Angular CLI version 10.
 
-## Installing Phantom Bookmark App
+## Installing Url Bookmark App
 
-To install Phantom Bookmark App, follow these steps:
+To install Url Bookmark App, follow these steps:
 
 ```
 npm install or npm i
 ```
 
-## Using Phantom Bookmark App
+## Using Url Bookmark App
 
-To use Phantom Bookmark App, follow these steps:
+To use Url Bookmark App, follow these steps:
 
 ```
 npm run bookmarkapp:serve
 ```
 
-To make a dist build of Phantom Bookmark App, follow these steps:
+To make a dist build of Url Bookmark App, follow these steps:
 
 ```
 npm run bookmarkapp:build /* add -- --prod to make a production build */
@@ -39,9 +39,9 @@ npm run bookmarkapp:build /* add -- --prod to make a production build */
 
 ## Monorep Structure
 
-The project is set up in a monorepo architecture. This allows developers to build and develop multiple applications and libraries and re-use and share code  them many times throughout the repo instead of duplicating code. It allows the developer to follow the separation of concerns rule
+The project is set up in a monorepo architecture. This allows developers to build and develop multiple applications and libraries and re-use and share code many times throughout the code workspace instead of writing and duplicating code. It allows the developer to follow the separation of concerns rule
 
-The main structure of the repo is split into two parts
+The main structure of the workspace is split into two parts
 
 
 
@@ -49,22 +49,61 @@ The main structure of the repo is split into two parts
 *   Libs
 
 
-### Apps
+## Apps
 
 The app takes libraries and is able to use the modules via the lazy loading strategy. this means the app can not only load one library but can have multiple parts for different situations i.e. mobile devices platforms, desktop applications etc
 
 
-### Libs
+## Libs
 
-Libs are multiple steprate modules that can be reused and shared within each other or in Apps. This means the library can be used not only inside of its own repo but if populist can be used for other projects as a tool or module.
+Libs are multiple steprate modules that can be reused and shared within each other or in Apps. This means the library can be used not only inside of its own workspace but if published, can be used for other projects as a tool or module.
 
 
-Libraries can be set into different types for the workspace:-
+# Libraries can be set into different types for the workspace
+
+
 
 *   Feature: implement smart components (or containers) for specific business use cases or pages in an application.
-*   UI: contains only presentational ( "dumb") components
+*   UI: contains only presentational ("dumb") components
 *   Data-access: contains code for interacting with a back-end system or related to state management.
 *   Utility: contains low-level utilities used by many libraries and applications
+
+Workspace Structure Overview
+
+Applications
+
+bookmark-app: main application for which imports the feature shell library via lazy loading as well as other root modules
+
+
+# Libraries
+
+Data-access
+
+
+
+*   **api**:  this libraries is responsible for two thing:
+    *   pulling the list of urls from the local storage to allow persistence page reload
+    *   Checking if a website url exists and retrieve the http url and image (if applicable)
+*   **store**: state management library using NGXS to handle dispatching actions and obtaining observable data
+
+Feature
+
+
+
+*   **shell**: this library uses data-access libs (store & api) to deliver the relevant data sources to the smart Ui of the application. Its handles the routing of the Overview and Result pages and provides the input-form and bookmark-list containers the right data to be used
+
+UI
+
+
+
+*   **ui-kit**: this library contains the bookmark card presentational component, which is used in the feature shell library. Can be reused for in and component that requires a bookmark item
+
+Util
+
+
+
+*   **animations**: contains angular animation code to be shared throughout the workspace
+*   **storage**: a reusable lib to handle local storage functions
 
 
 ## Documentation

@@ -15,6 +15,7 @@ import {
 export class BookmarkCardComponent {
   @Input() item: any;
   @Input() isEven: boolean;
+  @Input() isSingleCard = false;
 
   @Output() editItemChange = new EventEmitter();
   @Output() deleteItemChange = new EventEmitter();

@@ -54,7 +54,7 @@ export class ApiService {
    */
   getItems(): Observable<Bookmark[]> {
     const storage = this._storageService.getData(BOOKMARKS_STORAGE_KEY);
-    let list: Bookmark[] = storage[BOOKMARKS_STORAGE_KEY];
+    let list: Bookmark[] = storage['list'];
 
     if (list === null) {
       list = [];

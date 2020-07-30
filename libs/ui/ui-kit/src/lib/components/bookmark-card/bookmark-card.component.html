@@ -8,9 +8,20 @@
        [ngClass]="{'order-lg-1': isEven}">
     <h2><strong>{{item.id}}: </strong>{{item.url}}</h2>
     <p class="lead mb-0"></p>
-    <button class="btn btn-info mr-2"
-            (click)="editItemChange.emit(item)">Edit</button>
-    <button class="btn btn-danger"
-            (click)="deleteItemChange.emit(item.id)">Delete</button>
+
+    <ng-container *ngTemplateOutlet="isSingleCard ? singleCard : doubleCard">
+    </ng-container>
+
   </div>
 </div>
+
+<ng-template #singleCard>
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-template #doubleCard>
+  <button class="btn btn-info mr-2"
+          (click)="editItemChange.emit(item)">Edit</button>
+  <button class="btn btn-danger"
+          (click)="deleteItemChange.emit(item.id)">Delete</button>
+</ng-template>
