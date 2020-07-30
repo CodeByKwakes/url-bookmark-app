@@ -1,0 +1,54 @@
+<div class="card mt-3">
+  <div class="card-body">
+    <form [formGroup]="bookmarkForm"
+          (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <!-- <label class="col-md-4">Title</label> -->
+        <input type="title"
+               class="form-control"
+               formControlName="url"
+               placeholder="Enter a web url"
+               #url />
+        <div *ngIf="formUrl.invalid && (formUrl.dirty || formUrl.touched)"
+             class="alert alert-danger">
+          <div *ngIf="formUrl.errors.required">
+            A web url is required. Please enter your text
+          </div>
+          <div
+               *ngIf="!formUrl.hasError('required') &&  formUrl.hasError('pattern')">
+            Please enter a valid url
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group">
+
+        <button type="submit"
+                class="btn mr-1"
+                [ngClass]="{'btn-primary': !editbookmark, 'btn-info': editbookmark}"
+                [disabled]="bookmarkForm.pristine || bookmarkForm.invalid">{{editbookmark ? 'Update' : 'Submit'}}
+        </button>
+        <button class="btn btn-primary"
+                (click)="clearForm()">Clear</button>
+      </div>
+    </form>
+  </div>
+  <ng-container *ngIf="alertMessage$ | async as alert">
+    <div class="card-footer">
+      <div class="alert alert-danger alert-dismissible fade show"
+           role="alert">
+        <strong>ERROR!</strong> {{alert}}
+
+        <button type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+                (click)="onCloseAlertMessage()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

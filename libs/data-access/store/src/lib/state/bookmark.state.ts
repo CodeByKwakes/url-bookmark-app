@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { Bookmark, ApiService } from '@phantom/bookmark-api';
-import {
-  GetBookmarks,
-  AddBookmark,
-  UpdateBookmark,
-  DeleteBookmark,
-  SetSelectedBookmark,
-} from './bookmark.actions';
-import { tap } from 'rxjs/operators';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { ApiService, Bookmark } from '@phantom/bookmark-api';
 import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import {
+  AddBookmark,
+  DeleteBookmark,
+  GetBookmarks,
+  SetSelectedBookmark,
+  UpdateBookmark,
+} from './bookmark.actions';
 
 export class BookmarkStateModel {
   bookmarks: Bookmark[];
@@ -52,15 +52,21 @@ export class BookmarkState {
 
   @Action(AddBookmark)
   addBookmark(
-    { getState, patchState }: StateContext<BookmarkStateModel>,
-    { payload }: AddBookmark
+    { getState, patchState, dispatch }: StateContext<BookmarkStateModel>,
+    { url }: AddBookmark
   ) {
-    return of(payload).pipe(
+    return this._bookmarkApi.checkIfUrlExists(url).pipe(
       tap((result) => {
         const state = getState();
+        const id = state.bookmarks.length + 1;
+        const item = {
+          ...result,
+          id,
+        };
         patchState({
-          bookmarks: [...state.bookmarks, result],
+          bookmarks: [...state.bookmarks, item],
         });
+        dispatch(new SetSelectedBookmark(item.id));
       })
     );
   }
@@ -68,14 +74,19 @@ export class BookmarkState {
   @Action(UpdateBookmark)
   updateBookmark(
     { getState, setState }: StateContext<BookmarkStateModel>,
-    { payload, id }: UpdateBookmark
+    { url, id }: UpdateBookmark
   ) {
-    return of({ payload, id }).pipe(
+    return this._bookmarkApi.checkIfUrlExists(url).pipe(
       tap((result) => {
         const state = getState();
         const BookmarkList = [...state.bookmarks];
         const BookmarkIndex = BookmarkList.findIndex((item) => item.id === id);
-        BookmarkList[BookmarkIndex] = result.payload;
+        const updateItem = {
+          ...result,
+          id,
+        };
+        BookmarkList[BookmarkIndex] = updateItem;
+
         setState({
           ...state,
           bookmarks: BookmarkList,

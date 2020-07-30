@@ -1,0 +1,38 @@
+<div class="col mt-3">
+  <div *ngIf="bookmarks$">
+    <jw-pagination [items]="bookmarks$ | async"
+                   [maxPages]="20"
+                   (changePage)="onChangePage($event)"></jw-pagination>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Image</th>
+          <th>Url</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bookmark of pageOfBookmarks">
+          <td>{{ bookmark.id }}</td>
+          <td>
+            <img [src]="bookmark.image ? bookmark.image : noImageAvailable"
+                 width="80"
+                 height="80"
+                 [alt]="bookmark.url">
+          </td>
+          <td>{{ bookmark.url }}</td>
+          <td>
+            <button class="btn btn-primary"
+                    (click)="editBookmark(bookmark)">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-primary"
+                    (click)="deleteBookmark(bookmark.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

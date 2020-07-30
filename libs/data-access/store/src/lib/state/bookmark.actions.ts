@@ -3,7 +3,7 @@ import { Bookmark } from '@phantom/bookmark-api';
 export class AddBookmark {
   static readonly type = '[Bookmark] Add';
 
-  constructor(public payload: Bookmark) {}
+  constructor(public url: string) {}
 }
 
 export class GetBookmarks {
@@ -13,7 +13,7 @@ export class GetBookmarks {
 export class UpdateBookmark {
   static readonly type = '[Bookmark] Update';
 
-  constructor(public payload: Bookmark, public id: number) {}
+  constructor(public url: string, public id: number) {}
 }
 
 export class DeleteBookmark {

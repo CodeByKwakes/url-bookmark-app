@@ -4,5 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [StorageModule, HttpClientModule],
+  exports: [HttpClientModule],
 })
 export class ApiModule {}
