@@ -8,8 +8,13 @@ import { RouterAnimation } from '@phantom/util/animations';
   animations: [RouterAnimation],
 })
 export class AppComponent {
-  title = 'bookmark-app';
-
+  /**
+   * @description function to allow angular routing animations
+   * @author Kwakes Prempeh
+   * @param {RouterOutlet} outlet
+   * @returns
+   * @memberof AppComponent
+   */
   prepareRoute(outlet: RouterOutlet) {
     return (
       outlet &&

@@ -40,7 +40,7 @@
 
       </div>
 
-      <ng-container *ngIf="(alertMessageVM$ | async) as alert">
+      <ng-container *ngIf="(updateMessage$ | async) as update">
 
 
         <div class="col-xl-9 mx-auto">
@@ -48,9 +48,40 @@
 
           <div class="alert  alert-dismissible fade show"
                role="alert"
-               [ngClass]="{'alert-danger': alert.error, 'alert-info': alert.update }">
-            <strong *ngIf="alert.error || alert.update">{{alert.error ? 'ERROR': 'UPDATED'}}</strong>
-            {{alert.error ? alert.error : alert.update}}
+               [ngClass]="{'alert-info': update }">
+
+
+            <strong>{{'UPDATE'}}</strong>{{update }}
+
+            <button type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    (click)="onCloseAlertMessage()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+
+        </div>
+
+
+      </ng-container>
+
+      <ng-container *ngIf="(errorMessage$ | async) as error">
+
+
+        <div class="col-xl-9 mx-auto">
+
+
+          <div class="alert  alert-dismissible fade show"
+               role="alert"
+               [ngClass]="{'alert-danger': error }">
+
+
+            <strong *ngIf="error">{{'ERROR'}}</strong>{{error }}
+
+            <!-- <strong *ngIf="alert.update">{{'UPDATED'}}</strong>{{alert.update}} -->
 
             <button type="button"
                     class="close"

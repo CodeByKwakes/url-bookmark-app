@@ -9,8 +9,8 @@ import {
   SetSelectedBookmark,
   UpdateBookmark,
 } from '@phantom/bookmark-store';
-import { combineLatest, Observable, Subject } from 'rxjs';
-import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'phantom-tech-test-input-form',
@@ -18,23 +18,58 @@ import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
   styleUrls: ['./input-form.container.scss'],
 })
 export class InputFormContainer implements OnInit, OnDestroy {
+  /**
+   * @description selected bookmark observable from the state manager
+   * @type {Observable<Bookmark>}
+   * @memberof InputFormContainer
+   */
   @Select(BookmarkState.getSelectedBookmark)
   selectedbookmark$: Observable<Bookmark>;
 
+  /**
+   * @description subject used to stop subscriptions
+   * @private
+   * @memberof InputFormContainer
+   */
   private _destory$$ = new Subject();
+
+  /**
+   * @description subject to push message once bookmark is updated
+   * @private
+   * @memberof InputFormContainer
+   */
+
   private _updateAlertMessage$$ = new Subject<string>();
 
-  alertMessageVM$ = combineLatest([
-    this.bookmarkApi.alertMessage$.pipe(distinctUntilChanged()),
-    this._updateAlertMessage$$.asObservable().pipe(distinctUntilChanged()),
-  ]).pipe(
-    map(([error, update]) => ({ error, update })),
-    distinctUntilChanged()
-  );
+  /**
+   * @description error message observable
+   * @memberof InputFormContainer
+   */
+  errorMessage$ = this.bookmarkApi.alertMessage$.pipe();
 
+  /**
+   * @description update message observable
+   * @memberof InputFormContainer
+   */
+  updateMessage$ = this._updateAlertMessage$$.asObservable();
+
+  /**
+   * @description
+   * @type {FormGroup}
+   * @memberof InputFormContainer
+   */
   bookmarkForm: FormGroup;
+  /**
+   * @description
+   * @memberof InputFormContainer
+   */
   isBookmarkEdit = false;
 
+  /**
+   * @description
+   * @readonly
+   * @memberof InputFormContainer
+   */
   get formUrl() {
     return this.bookmarkForm.get('url');
   }
@@ -71,6 +106,11 @@ export class InputFormContainer implements OnInit, OnDestroy {
     this._destory$$.complete();
   }
 
+  /**
+   * @description submit form values and check if it exists or not
+   * @author Kwakes Prempeh
+   * @memberof InputFormContainer
+   */
   onSubmit() {
     if (this.isBookmarkEdit) {
       this.store
@@ -101,17 +141,33 @@ export class InputFormContainer implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @description reset the form to init state
+   * @author Kwakes Prempeh
+   * @memberof InputFormContainer
+   */
   clearForm() {
     this.bookmarkForm.reset();
     this.onCloseAlertMessage();
     this.store.dispatch(new SetSelectedBookmark(null));
   }
 
+  /**
+   * @description clear any error or update message
+   * @author Kwakes Prempeh
+   * @memberof InputFormContainer
+   */
   onCloseAlertMessage() {
     this._updateAlertMessage$$.next(null);
     this.bookmarkApi.setAlertMessage(null);
   }
 
+  /**
+   * @description create init value for the url form
+   * @author Kwakes Prempeh
+   * @private
+   * @memberof InputFormContainer
+   */
   private createForm() {
     const urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
     this.bookmarkForm = this.fb.group({

@@ -10,11 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./result.page.scss'],
 })
 export class ResultPage implements OnInit {
-  @Select(BookmarkState.getSelectedBookmark) bookmark$: Observable<Bookmark>;
+  @Select(BookmarkState.getSelectedBookmark)
+  bookmark$: Observable<Bookmark>;
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
+  /**
+   * @description route to overview page
+   * @author Kwakes Prempeh
+   * @memberof ResultPage
+   */
   onRouteToOverview() {
     this.router.navigate(['overview']);
   }

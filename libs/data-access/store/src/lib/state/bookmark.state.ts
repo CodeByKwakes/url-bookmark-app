@@ -26,11 +26,27 @@ export class BookmarkStateModel {
 })
 @Injectable()
 export class BookmarkState {
+  /**
+   * @description
+   * @author Kwakes Prempeh
+   * @static
+   * @param {BookmarkStateModel} state
+   * @returns
+   * @memberof BookmarkState
+   */
   @Selector()
   static getBookmarkList(state: BookmarkStateModel) {
     return state.list;
   }
 
+  /**
+   * @description
+   * @author Kwakes Prempeh
+   * @static
+   * @param {BookmarkStateModel} state
+   * @returns
+   * @memberof BookmarkState
+   */
   @Selector()
   static getSelectedBookmark(state: BookmarkStateModel) {
     return state.selectedBookmark;
@@ -38,6 +54,13 @@ export class BookmarkState {
 
   constructor(private _bookmarkApi: ApiService) {}
 
+  /**
+   * @description
+   * @author Kwakes Prempeh
+   * @param {StateContext<BookmarkStateModel>} { getState, setState }
+   * @returns
+   * @memberof BookmarkState
+   */
   @Action(GetBookmarks)
   getBookmarks({ getState, setState }: StateContext<BookmarkStateModel>) {
     return this._bookmarkApi.getItems().pipe(
@@ -51,6 +74,14 @@ export class BookmarkState {
     );
   }
 
+  /**
+   * @description
+   * @author Kwakes Prempeh
+   * @param {StateContext<BookmarkStateModel>} { getState, patchState, dispatch }
+   * @param {AddBookmark} { url }
+   * @returns
+   * @memberof BookmarkState
+   */
   @Action(AddBookmark)
   addBookmark(
     { getState, patchState, dispatch }: StateContext<BookmarkStateModel>,
@@ -72,6 +103,14 @@ export class BookmarkState {
     );
   }
 
+  /**
+   * @description
+   * @author Kwakes Prempeh
+   * @param {StateContext<BookmarkStateModel>} { getState, setState }
+   * @param {UpdateBookmark} { url, id }
+   * @returns
+   * @memberof BookmarkState
+   */
   @Action(UpdateBookmark)
   updateBookmark(
     { getState, setState }: StateContext<BookmarkStateModel>,
@@ -96,6 +135,14 @@ export class BookmarkState {
     );
   }
 
+  /**
+   * @description
+   * @author Kwakes Prempeh
+   * @param {StateContext<BookmarkStateModel>} { getState, setState }
+   * @param {DeleteBookmark} { id }
+   * @returns
+   * @memberof BookmarkState
+   */
   @Action(DeleteBookmark)
   deleteBookmark(
     { getState, setState }: StateContext<BookmarkStateModel>,
@@ -113,6 +160,13 @@ export class BookmarkState {
     );
   }
 
+  /**
+   * @description
+   * @author Kwakes Prempeh
+   * @param {StateContext<BookmarkStateModel>} { getState, setState }
+   * @param {SetSelectedBookmark} { payload }
+   * @memberof BookmarkState
+   */
   @Action(SetSelectedBookmark)
   setSelectedBookmarkId(
     { getState, setState }: StateContext<BookmarkStateModel>,
