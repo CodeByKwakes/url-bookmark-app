@@ -1,1 +1,0 @@
-{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AACA,KACE,sBACF,CAEA,UAEE,WACF","file":"styles.aec5170fc9ec8833d3a5.css","sourcesContent":["/* You can add global styles to this file, and also import other style files */\nhtml {\n  scroll-behavior: smooth;\n}\n\nhtml,\nbody {\n  height: 100%;\n}\n"],"sourceRoot":"webpack:///"}
