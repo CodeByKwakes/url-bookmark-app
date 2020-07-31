@@ -11,6 +11,7 @@ import {
   UpdateBookmark,
 } from './bookmark.actions';
 
+const idGenerator = () => '_' + Math.random().toString(36).substr(2, 9);
 export class BookmarkStateModel {
   list: Bookmark[];
   selectedBookmark: Bookmark;
@@ -58,7 +59,7 @@ export class BookmarkState {
     return this._bookmarkApi.checkIfUrlExists(url).pipe(
       tap((result) => {
         const state = getState();
-        const id = state.list.length + 1;
+        const id = idGenerator();
         const item = {
           ...result,
           id,

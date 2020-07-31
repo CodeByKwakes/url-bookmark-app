@@ -13,13 +13,13 @@ export class GetBookmarks {
 export class UpdateBookmark {
   static readonly type = '[Bookmark] Update';
 
-  constructor(public url: string, public id: number) {}
+  constructor(public url: string, public id: string) {}
 }
 
 export class DeleteBookmark {
   static readonly type = '[Bookmark] Delete';
 
-  constructor(public id: number) {}
+  constructor(public id: string) {}
 }
 
 export class SetSelectedBookmark {

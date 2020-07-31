@@ -27,7 +27,7 @@ export class BookmarkListContainer implements OnInit {
     this.store.dispatch(new GetBookmarks());
   }
 
-  onDeleteBookmark(id: number) {
+  onDeleteBookmark(id: string) {
     this.store.dispatch(new DeleteBookmark(id));
   }
 
