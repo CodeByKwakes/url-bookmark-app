@@ -25,7 +25,9 @@
               "apps/bookmark-app/src/favicon.ico",
               "apps/bookmark-app/src/assets"
             ],
-            "styles": ["apps/bookmark-app/src/styles.scss"],
+            "styles": [
+              "apps/bookmark-app/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -82,7 +84,10 @@
               "apps/bookmark-app/tsconfig.app.json",
               "apps/bookmark-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/bookmark-app/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/bookmark-app/**/*"
+            ]
           }
         },
         "test": {
@@ -91,6 +96,10 @@
             "jestConfig": "apps/bookmark-app/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },
@@ -115,8 +124,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/bookmark-app-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/bookmark-app-e2e/**/*"]
+            "tsConfig": [
+              "apps/bookmark-app-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/bookmark-app-e2e/**/*"
+            ]
           }
         }
       }
@@ -146,7 +160,10 @@
               "libs/util/storage/tsconfig.lib.json",
               "libs/util/storage/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/util/storage/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/util/storage/**/*"
+            ]
           }
         },
         "test": {
@@ -190,7 +207,10 @@
               "libs/data-access/api/tsconfig.lib.json",
               "libs/data-access/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/data-access/api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/data-access/api/**/*"
+            ]
           }
         },
         "test": {
@@ -234,7 +254,10 @@
               "libs/data-access/store/tsconfig.lib.json",
               "libs/data-access/store/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/data-access/store/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/data-access/store/**/*"
+            ]
           }
         },
         "test": {
@@ -278,7 +301,10 @@
               "libs/feature/shell/tsconfig.lib.json",
               "libs/feature/shell/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/feature/shell/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/feature/shell/**/*"
+            ]
           }
         },
         "test": {
@@ -322,7 +348,10 @@
               "libs/util/animations/tsconfig.lib.json",
               "libs/util/animations/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/util/animations/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/util/animations/**/*"
+            ]
           }
         },
         "test": {
@@ -366,7 +395,10 @@
               "libs/ui/ui-kit/tsconfig.lib.json",
               "libs/ui/ui-kit/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/ui-kit/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/ui/ui-kit/**/*"
+            ]
           }
         },
         "test": {
